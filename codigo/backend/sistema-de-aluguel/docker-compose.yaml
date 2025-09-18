@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=mydatabase'
+      - 'MYSQL_PASSWORD=secret'
+      - 'MYSQL_ROOT_PASSWORD=verysecret'
+      - 'MYSQL_USER=myuser'
+    ports:
+      - '3306'
+  back:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: back
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - spring-cache-aluguel:/root/.m2
+    environment:
+      SPRING_BOOT_DEVTOOLS_RESTART_ENABLED: "true"
+      SPRING_BOOT_DEVTOOLS_RESTART_TRIGGER_FILE: "pom.xml"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+volumes:
+  spring-cache-aluguel:
