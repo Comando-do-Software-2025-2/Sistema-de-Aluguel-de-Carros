@@ -1,4 +1,7 @@
 package com.app.sistema_de_aluguel.repositories;
 
-public class ClienteRepository {
+import com.app.sistema_de_aluguel.models.Cliente;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ClienteRepository  extends JpaRepository<Cliente, Long> {
 }
