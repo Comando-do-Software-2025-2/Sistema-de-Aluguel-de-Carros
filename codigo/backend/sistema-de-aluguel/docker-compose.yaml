@@ -1,13 +1,25 @@
 services:
-  mysql:
-    image: 'mysql:latest'
+  postgres-aluguel:
+    image: postgres:17
+    restart: unless-stopped
     environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      - 'POSTGRES_DB=postgres-aluguel'
+      - 'POSTGRES_PASSWORD=root'
+      - 'POSTGRES_USER=root'
     ports:
-      - '3306'
+      - '5432:5432'
+    volumes:
+      - aluguel:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      interval: 30s
+      timeout: 15s
+      retries: 5
+      start_period: 30s
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
   back:
     build:
       context: .
@@ -28,3 +40,4 @@ services:
 
 volumes:
   spring-cache-aluguel:
+  aluguel:
