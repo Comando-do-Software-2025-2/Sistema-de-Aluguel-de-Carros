@@ -4,7 +4,7 @@ import { Cliente } from '@/types/cliente';
 interface ClienteListProps {
   clientes: Cliente[];
   onEdit: (cliente: Cliente) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: number) => void;
   onAdd: () => void;
 }
 
@@ -15,7 +15,9 @@ export const ClienteList = ({ clientes, onEdit, onDelete, onAdd }: ClienteListPr
   const filteredClientes = clientes.filter(cliente =>
     cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
     cliente.cpf.includes(searchTerm) ||
-    cliente.email.toLowerCase().includes(searchTerm.toLowerCase())
+    cliente.rg.includes(searchTerm) ||
+    (cliente.profissao && cliente.profissao.toLowerCase().includes(searchTerm.toLowerCase())) ||
+    cliente.endereco.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const formatCPF = (cpf: string) => {
@@ -27,7 +29,7 @@ export const ClienteList = ({ clientes, onEdit, onDelete, onAdd }: ClienteListPr
   };
 
   // Para confirmação de exclusão
-  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
   return (
     <div style={{ width: '100%', maxWidth: 900, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 24 }}>
@@ -78,15 +80,12 @@ export const ClienteList = ({ clientes, onEdit, onDelete, onAdd }: ClienteListPr
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     <h3 style={{ fontSize: 18, fontWeight: 600, color: '#222' }}>{cliente.nome}</h3>
-                    <span style={{ padding: '2px 10px', borderRadius: 12, background: cliente.status === 'ativo' ? '#d1fae5' : '#f3f4f6', color: cliente.status === 'ativo' ? '#047857' : '#6b7280', fontSize: 13, fontWeight: 500 }}>
-                      {cliente.status === 'ativo' ? 'Ativo' : 'Inativo'}
-                    </span>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, fontSize: 14, color: '#64748b', marginTop: 8 }}>
                     <div><span style={{ fontWeight: 500 }}>CPF:</span> {formatCPF(cliente.cpf)}</div>
-                    <div><span style={{ fontWeight: 500 }}>Email:</span> {cliente.email}</div>
-                    <div><span style={{ fontWeight: 500 }}>Telefone:</span> {cliente.telefone ? formatPhone(cliente.telefone) : 'Não informado'}</div>
-                    <div style={{ gridColumn: 'span 3' }}><span style={{ fontWeight: 500 }}>Endereço:</span> {cliente.endereco.rua}, {cliente.endereco.numero} - {cliente.endereco.bairro}, {cliente.endereco.cidade}/{cliente.endereco.estado}</div>
+                    <div><span style={{ fontWeight: 500 }}>RG:</span> {cliente.rg}</div>
+                    <div><span style={{ fontWeight: 500 }}>Profissão:</span> {cliente.profissao || 'Não informado'}</div>
+                    <div style={{ gridColumn: 'span 3' }}><span style={{ fontWeight: 500 }}>Endereço:</span> {cliente.endereco}</div>
                   </div>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>

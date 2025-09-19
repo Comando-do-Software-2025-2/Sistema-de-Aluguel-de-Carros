@@ -1,33 +1,18 @@
+
 export interface Cliente {
-  id: string;
+  id: number;
   nome: string;
+  rg: string;
   cpf: string;
-  email: string;
-  telefone: string;
-  endereco: {
-    rua: string;
-    numero: string;
-    bairro: string;
-    cidade: string;
-    cep: string;
-    estado: string;
-  };
-  dataNascimento: string;
-  status: 'ativo' | 'inativo';
-  dataRegistro: string;
+  endereco: string;
+  profissao?: string;
 }
+
 
 export interface ClienteFormData {
   nome: string;
+  rg: string;
   cpf: string;
-  email: string;
-  telefone: string;
-  rua: string;
-  numero: string;
-  bairro: string;
-  cidade: string;
-  cep: string;
-  estado: string;
-  dataNascimento: string;
-  status: 'ativo' | 'inativo';
+  endereco: string;
+  profissao: string;
 }

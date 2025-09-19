@@ -17,34 +17,20 @@ const ESTADOS = [
 export const ClienteForm = ({ cliente, onSave, onCancel }: ClienteFormProps) => {
   const [formData, setFormData] = useState<ClienteFormData>({
     nome: '',
+    rg: '',
     cpf: '',
-    email: '',
-    telefone: '',
-    rua: '',
-    numero: '',
-    bairro: '',
-    cidade: '',
-    cep: '',
-    estado: '',
-    dataNascimento: '',
-    status: 'ativo'
+    endereco: '',
+    profissao: ''
   });
 
   useEffect(() => {
     if (cliente) {
       setFormData({
         nome: cliente.nome,
+        rg: cliente.rg,
         cpf: cliente.cpf,
-        email: cliente.email,
-        telefone: cliente.telefone,
-        rua: cliente.endereco.rua,
-        numero: cliente.endereco.numero,
-        bairro: cliente.endereco.bairro,
-        cidade: cliente.endereco.cidade,
-        cep: cliente.endereco.cep,
-        estado: cliente.endereco.estado,
-        dataNascimento: cliente.dataNascimento,
-        status: cliente.status
+        endereco: cliente.endereco,
+        profissao: cliente.profissao || ''
       });
     }
   }, [cliente]);
@@ -56,12 +42,11 @@ export const ClienteForm = ({ cliente, onSave, onCancel }: ClienteFormProps) => 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Validação básica
-    if (!formData.nome || !formData.cpf || !formData.email) {
-      alert('Nome, CPF e email são obrigatórios.');
+    if (!formData.nome || !formData.cpf || !formData.rg || !formData.endereco) {
+      alert('Nome, RG, CPF e Endereço são obrigatórios.');
       return;
     }
     onSave(formData);
-    // Mensagem de sucesso simples
     alert(cliente ? 'Cliente atualizado com sucesso!' : 'Cliente cadastrado com sucesso!');
   };
 
@@ -71,9 +56,8 @@ export const ClienteForm = ({ cliente, onSave, onCancel }: ClienteFormProps) => 
         {cliente ? 'Editar Cliente' : 'Novo Cliente'}
       </h2>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-        {/* Dados Pessoais */}
         <div>
-          <h3 style={{ fontSize: 18, fontWeight: 500, marginBottom: 12 }}>Dados Pessoais</h3>
+          <h3 style={{ fontSize: 18, fontWeight: 500, marginBottom: 12 }}>Dados do Cliente</h3>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
               <label htmlFor="nome">Nome Completo *</label>
@@ -82,6 +66,17 @@ export const ClienteForm = ({ cliente, onSave, onCancel }: ClienteFormProps) => 
                 value={formData.nome}
                 onChange={e => handleInputChange('nome', e.target.value)}
                 placeholder="Digite o nome completo"
+                required
+                style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
+              />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <label htmlFor="rg">RG *</label>
+              <input
+                id="rg"
+                value={formData.rg}
+                onChange={e => handleInputChange('rg', e.target.value)}
+                placeholder="00.000.000-0"
                 required
                 style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
               />
@@ -98,117 +93,23 @@ export const ClienteForm = ({ cliente, onSave, onCancel }: ClienteFormProps) => 
               />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <label htmlFor="email">Email *</label>
+              <label htmlFor="endereco">Endereço *</label>
               <input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={e => handleInputChange('email', e.target.value)}
-                placeholder="email@exemplo.com"
+                id="endereco"
+                value={formData.endereco}
+                onChange={e => handleInputChange('endereco', e.target.value)}
+                placeholder="Rua, número, bairro, cidade, estado, CEP"
                 required
                 style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
               />
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <label htmlFor="telefone">Telefone</label>
+              <label htmlFor="profissao">Profissão</label>
               <input
-                id="telefone"
-                value={formData.telefone}
-                onChange={e => handleInputChange('telefone', e.target.value)}
-                placeholder="(11) 99999-9999"
-                style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-              />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <label htmlFor="dataNascimento">Data de Nascimento</label>
-              <input
-                id="dataNascimento"
-                type="date"
-                value={formData.dataNascimento}
-                onChange={e => handleInputChange('dataNascimento', e.target.value)}
-                style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-              />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <label htmlFor="status">Status</label>
-              <select
-                id="status"
-                value={formData.status}
-                onChange={e => handleInputChange('status', e.target.value)}
-                style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-              >
-                <option value="ativo">Ativo</option>
-                <option value="inativo">Inativo</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Endereço */}
-        <div>
-          <h3 style={{ fontSize: 18, fontWeight: 500, marginBottom: 12 }}>Endereço</h3>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 16 }}>
-            <div style={{ gridColumn: 'span 2', display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <label htmlFor="rua">Rua</label>
-              <input
-                id="rua"
-                value={formData.rua}
-                onChange={e => handleInputChange('rua', e.target.value)}
-                placeholder="Nome da rua"
-                style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-              />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <label htmlFor="numero">Número</label>
-              <input
-                id="numero"
-                value={formData.numero}
-                onChange={e => handleInputChange('numero', e.target.value)}
-                placeholder="123"
-                style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-              />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <label htmlFor="bairro">Bairro</label>
-              <input
-                id="bairro"
-                value={formData.bairro}
-                onChange={e => handleInputChange('bairro', e.target.value)}
-                placeholder="Nome do bairro"
-                style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-              />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <label htmlFor="cidade">Cidade</label>
-              <input
-                id="cidade"
-                value={formData.cidade}
-                onChange={e => handleInputChange('cidade', e.target.value)}
-                placeholder="Nome da cidade"
-                style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-              />
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <label htmlFor="estado">Estado</label>
-              <select
-                id="estado"
-                value={formData.estado}
-                onChange={e => handleInputChange('estado', e.target.value)}
-                style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
-              >
-                <option value="">Selecione</option>
-                {ESTADOS.map(estado => (
-                  <option key={estado} value={estado}>{estado}</option>
-                ))}
-              </select>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <label htmlFor="cep">CEP</label>
-              <input
-                id="cep"
-                value={formData.cep}
-                onChange={e => handleInputChange('cep', e.target.value)}
-                placeholder="00000-000"
+                id="profissao"
+                value={formData.profissao}
+                onChange={e => handleInputChange('profissao', e.target.value)}
+                placeholder="Profissão do cliente"
                 style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
               />
             </div>

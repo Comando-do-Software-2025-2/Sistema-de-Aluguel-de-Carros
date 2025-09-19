@@ -23,7 +23,7 @@ export const Clientes = () => {
     setCurrentView('form');
   };
 
-  const handleDeleteCliente = (id: string) => {
+  const handleDeleteCliente = (id: number) => {
     excluirCliente(id);
     toast({
       title: "Cliente excluído",
