@@ -1,66 +1,103 @@
-import { useState, useCallback } from 'react';
+
+import { useState, useCallback, useEffect } from 'react';
 import { Cliente, ClienteFormData } from '@/types/cliente';
 
-const INITIAL_CLIENTES: Cliente[] = [
-  {
-    id: 1,
-    nome: 'João Silva',
-    rg: '12.345.678-9',
-    cpf: '123.456.789-00',
-    endereco: 'Rua das Flores, 123, Centro, São Paulo, SP, 01234-567',
-    profissao: 'Engenheiro'
-  },
-  {
-    id: 2,
-    nome: 'Maria Santos',
-    rg: '98.765.432-1',
-    cpf: '987.654.321-00',
-    endereco: 'Av. Principal, 456, Jardins, São Paulo, SP, 04567-890',
-    profissao: 'Médica'
-  }
-];
+const API_URL = 'http://localhost:8080/clientes';
 
 export const useClientes = () => {
-  const [clientes, setClientes] = useState<Cliente[]>(INITIAL_CLIENTES);
+  const [clientes, setClientes] = useState<Cliente[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const adicionarCliente = useCallback((data: ClienteFormData) => {
-    const novoCliente: Cliente = {
-      id: Math.floor(Math.random() * 1000000),
-      nome: data.nome,
-      rg: data.rg,
-      cpf: data.cpf,
-      endereco: data.endereco,
-      profissao: data.profissao
-    };
-    setClientes(prev => [...prev, novoCliente]);
-    return novoCliente;
+  // Buscar todos os clientes
+  const fetchClientes = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(API_URL);
+      if (!res.ok) throw new Error('Erro ao buscar clientes');
+      const data = await res.json();
+      setClientes(data);
+    } catch (err: any) {
+      setError(err.message || 'Erro desconhecido');
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const editarCliente = useCallback((id: number, data: ClienteFormData) => {
-    setClientes(prev => prev.map(cliente => 
-      cliente.id === id 
-        ? {
-            ...cliente,
-            nome: data.nome,
-            rg: data.rg,
-            cpf: data.cpf,
-            endereco: data.endereco,
-            profissao: data.profissao
-          }
-        : cliente
-    ));
+  useEffect(() => {
+    fetchClientes();
+  }, [fetchClientes]);
+
+  // Adicionar cliente
+  const adicionarCliente = useCallback(async (data: ClienteFormData) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('Erro ao adicionar cliente');
+      const novoCliente = await res.json();
+      setClientes(prev => [...prev, novoCliente]);
+      return novoCliente;
+    } catch (err: any) {
+      setError(err.message || 'Erro desconhecido');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const excluirCliente = useCallback((id: number) => {
-    setClientes(prev => prev.filter(cliente => cliente.id !== id));
+  // Editar cliente
+  const editarCliente = useCallback(async (id: number, data: ClienteFormData) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) throw new Error('Erro ao editar cliente');
+      const clienteAtualizado = await res.json();
+      setClientes(prev => prev.map(c => c.id === id ? { ...c, ...clienteAtualizado } : c));
+    } catch (err: any) {
+      setError(err.message || 'Erro desconhecido');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
+  // Excluir cliente
+  const excluirCliente = useCallback(async (id: number) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Erro ao excluir cliente');
+      setClientes(prev => prev.filter(cliente => cliente.id !== id));
+    } catch (err: any) {
+      setError(err.message || 'Erro desconhecido');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // Obter cliente por id
   const obterClientePorId = useCallback((id: number) => {
     return clientes.find(cliente => cliente.id === id);
   }, [clientes]);
 
   return {
     clientes,
+    loading,
+    error,
+    fetchClientes,
     adicionarCliente,
     editarCliente,
     excluirCliente,
