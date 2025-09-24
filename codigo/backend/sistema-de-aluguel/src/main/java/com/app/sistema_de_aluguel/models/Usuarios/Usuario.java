@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Getter
 @Entity
 @Table
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Usuario {
     @Id
@@ -35,12 +37,6 @@ public abstract class Usuario {
     @NotEmpty
     private String endereco;
 
-    @CreationTimestamp
-    private Instant criadoEm;
-
-    @UpdateTimestamp
-    private Instant ultimaModificacao;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -48,4 +44,19 @@ public abstract class Usuario {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> permissoes;
+
+    @CreationTimestamp
+    private Instant criadoEm;
+
+    @UpdateTimestamp
+    private Instant ultimaModificacao;
+
+
+    public Usuario(String senha, String email, String nome, String endereco, Set<Role> permissoes) {
+        this.senha = senha;
+        this.email = email;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.permissoes = permissoes;
+    }
 }

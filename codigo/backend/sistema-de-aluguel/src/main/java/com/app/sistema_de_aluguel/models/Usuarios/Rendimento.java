@@ -25,4 +25,10 @@ public class Rendimento {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
+
+    public Rendimento(String entidadeEmpregadora, BigDecimal valor, Cliente cliente) {
+        this.entidadeEmpregadora = entidadeEmpregadora;
+        this.valor = valor;
+        this.cliente = cliente;
+    }
 }
