@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Users, FileText, Car, ScrollText } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -86,42 +86,16 @@ const Index = () => {
           </Link>
         </div>
 
-        {/* Ações Principais */}
+        {/* Mensagem de Boas-vindas */}
         <div className="text-center">
           <div className="bg-card rounded-lg p-8 shadow-sm border">
             <h2 className="text-2xl font-semibold text-primary mb-4">
               Bem-vindo ao Sistema de Locadora
             </h2>
-            <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+            <p className="text-muted-foreground max-w-xl mx-auto">
               Sistema completo para controlar todas as operações da sua locadora de veículos.
               Gerencie clientes, veículos, aluguéis e contratos de forma integrada.
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Link to="/clientes">
-                <Button size="lg" className="text-lg px-8">
-                  <Users className="mr-2 h-5 w-5" />
-                  Gerenciar Clientes
-                </Button>
-              </Link>
-              <Link to="/veiculos">
-                <Button size="lg" variant="outline" className="text-lg px-8">
-                  <Car className="mr-2 h-5 w-5" />
-                  Gerenciar Veículos
-                </Button>
-              </Link>
-              <Link to="/alugueis">
-                <Button size="lg" variant="outline" className="text-lg px-8">
-                  <FileText className="mr-2 h-5 w-5" />
-                  Gerenciar Aluguéis
-                </Button>
-              </Link>
-              <Link to="/contratos">
-                <Button size="lg" variant="outline" className="text-lg px-8">
-                  <ScrollText className="mr-2 h-5 w-5" />
-                  Gerenciar Contratos
-                </Button>
-              </Link>
-            </div>
           </div>
         </div>
       </div>
