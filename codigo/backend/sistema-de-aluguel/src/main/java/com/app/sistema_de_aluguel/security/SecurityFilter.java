@@ -31,7 +31,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if (token != null) {
             String login = tokenService.validateToken(token);
-            UserDetails userDetails = usuarioRepository.findByLogin(login);
+            UserDetails userDetails = usuarioRepository.findByEmail(login);
 
             System.out.println(userDetails);
 
