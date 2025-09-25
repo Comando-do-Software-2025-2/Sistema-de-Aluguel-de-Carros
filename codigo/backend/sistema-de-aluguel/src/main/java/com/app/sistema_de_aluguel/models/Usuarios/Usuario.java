@@ -9,10 +9,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
-import java.util.Set;
-
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -20,7 +23,8 @@ import java.util.Set;
 @Table
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Usuario {
+public abstract class Usuario implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -43,14 +47,13 @@ public abstract class Usuario {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> permissoes;
+    private Set<Role> permissoes = new HashSet<>();
 
     @CreationTimestamp
     private Instant criadoEm;
 
     @UpdateTimestamp
     private Instant ultimaModificacao;
-
 
     public Usuario(String senha, String email, String nome, String endereco, Set<Role> permissoes) {
         this.senha = senha;
@@ -59,4 +62,48 @@ public abstract class Usuario {
         this.endereco = endereco;
         this.permissoes = permissoes;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new HashSet<>();
+
+        // Adiciona as roles
+        authorities.addAll(
+                permissoes.stream()
+                        .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName().toUpperCase()))
+                        .collect(Collectors.toSet())
+        );
+
+        // Adiciona as permissões de cada role
+        permissoes.forEach(role -> {
+            if (role.getPermissions() != null) {
+                role.getPermissions().forEach(permission ->
+                        authorities.add(new SimpleGrantedAuthority(permission.name())));
+            }
+        });
+
+        return authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() { return true; }
+
+    @Override
+    public boolean isAccountNonLocked() { return true; }
+
+    @Override
+    public boolean isCredentialsNonExpired() { return true; }
+
+    @Override
+    public boolean isEnabled() { return true; }
 }

@@ -8,8 +8,8 @@ import lombok.Setter;
 
 import java.util.Set;
 
-@Table
 @Entity
+@Table
 @NoArgsConstructor
 @Setter
 @Getter
@@ -18,11 +18,11 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String name; // Exemplo: ADMIN, USER
 
     @ElementCollection(targetClass = Permissoes.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "role_permissions", joinColumns = @JoinColumn(name = "role_id"))
-    @Column(name = "permissions")
+    @Column(name = "permission") // deixei singular para ficar mais semântico
     @Enumerated(EnumType.STRING)
     private Set<Permissoes> permissions;
 }
