@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Car, Users, FileText, Home } from 'lucide-react';
+import { Car, Users, FileText, Home, ScrollText } from 'lucide-react';
 
 const Navbar = () => {
   const location = useLocation();
@@ -25,6 +25,11 @@ const Navbar = () => {
       path: '/alugueis',
       label: 'Aluguéis',
       icon: FileText,
+    },
+    {
+      path: '/contratos',
+      label: 'Contratos',
+      icon: ScrollText,
     },
   ];
 
