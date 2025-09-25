@@ -3,8 +3,10 @@ package com.app.sistema_de_aluguel.services;
 import com.app.sistema_de_aluguel.models.Usuarios.Cliente;
 import com.app.sistema_de_aluguel.repositories.ClienteRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +14,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClienteService {
     private final ClienteRepository clienteRepository;
+    private final PasswordEncoder passwordEncoder;
+    
     public List<Cliente> findAll() {
         return clienteRepository.findAll();
     }
@@ -21,6 +25,14 @@ public class ClienteService {
     }
 
     public Cliente create(Cliente cliente) {
+        // Codificar a senha
+        cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
+        
+        // Definir permissões vazias se não estiver definida (para evitar erros de constraint)
+        if (cliente.getPermissoes() == null) {
+            cliente.setPermissoes(new HashSet<>());
+        }
+        
         return clienteRepository.save(cliente);
     }
 
