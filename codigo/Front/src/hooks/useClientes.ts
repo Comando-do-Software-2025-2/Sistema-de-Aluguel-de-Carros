@@ -34,16 +34,30 @@ export const useClientes = () => {
     setLoading(true);
     setError(null);
     try {
+      console.log('Enviando dados para o backend:', data);
       const res = await fetch(API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(data)
       });
-      if (!res.ok) throw new Error('Erro ao adicionar cliente');
+      
+      console.log('Resposta do servidor:', res.status, res.statusText);
+      
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error('Erro do servidor:', errorText);
+        throw new Error(`Erro ${res.status}: ${errorText || 'Erro ao adicionar cliente'}`);
+      }
+      
       const novoCliente = await res.json();
+      console.log('Cliente criado:', novoCliente);
       setClientes(prev => [...prev, novoCliente]);
       return novoCliente;
     } catch (err: any) {
+      console.error('Erro no cadastro:', err);
       setError(err.message || 'Erro desconhecido');
       throw err;
     } finally {

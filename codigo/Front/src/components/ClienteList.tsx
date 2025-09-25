@@ -16,6 +16,7 @@ export const ClienteList = ({ clientes, onEdit, onDelete, onAdd }: ClienteListPr
     cliente.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
     cliente.cpf.includes(searchTerm) ||
     cliente.rg.includes(searchTerm) ||
+    cliente.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
     (cliente.profissao && cliente.profissao.toLowerCase().includes(searchTerm.toLowerCase())) ||
     cliente.endereco.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -84,6 +85,7 @@ export const ClienteList = ({ clientes, onEdit, onDelete, onAdd }: ClienteListPr
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 8, fontSize: 14, color: '#64748b', marginTop: 8 }}>
                     <div><span style={{ fontWeight: 500 }}>CPF:</span> {formatCPF(cliente.cpf)}</div>
                     <div><span style={{ fontWeight: 500 }}>RG:</span> {cliente.rg}</div>
+                    <div><span style={{ fontWeight: 500 }}>Email:</span> {cliente.email}</div>
                     <div><span style={{ fontWeight: 500 }}>Profissão:</span> {cliente.profissao || 'Não informado'}</div>
                     <div style={{ gridColumn: 'span 3' }}><span style={{ fontWeight: 500 }}>Endereço:</span> {cliente.endereco}</div>
                   </div>

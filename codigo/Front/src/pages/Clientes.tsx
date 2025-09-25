@@ -31,14 +31,30 @@ export const Clientes = () => {
     });
   };
 
-  const handleSaveCliente = (data: any) => {
-    if (clienteEditando) {
-      editarCliente(clienteEditando.id, data);
-    } else {
-      adicionarCliente(data);
+  const handleSaveCliente = async (data: any) => {
+    try {
+      if (clienteEditando) {
+        await editarCliente(clienteEditando.id, data);
+        toast({
+          title: "Cliente atualizado",
+          description: "Cliente foi atualizado com sucesso.",
+        });
+      } else {
+        await adicionarCliente(data);
+        toast({
+          title: "Cliente cadastrado",
+          description: "Cliente foi cadastrado com sucesso.",
+        });
+      }
+      setCurrentView('list');
+      setClienteEditando(undefined);
+    } catch (error: any) {
+      toast({
+        title: "Erro",
+        description: error.message || "Ocorreu um erro ao salvar o cliente.",
+        variant: "destructive",
+      });
     }
-    setCurrentView('list');
-    setClienteEditando(undefined);
   };
 
   const handleCancelForm = () => {

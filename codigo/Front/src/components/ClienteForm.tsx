@@ -17,6 +17,8 @@ const ESTADOS = [
 export const ClienteForm = ({ cliente, onSave, onCancel }: ClienteFormProps) => {
   const [formData, setFormData] = useState<ClienteFormData>({
     nome: '',
+    email: '',
+    senha: '',
     rg: '',
     cpf: '',
     endereco: '',
@@ -27,6 +29,8 @@ export const ClienteForm = ({ cliente, onSave, onCancel }: ClienteFormProps) => 
     if (cliente) {
       setFormData({
         nome: cliente.nome,
+        email: cliente.email,
+        senha: cliente.senha,
         rg: cliente.rg,
         cpf: cliente.cpf,
         endereco: cliente.endereco,
@@ -42,12 +46,11 @@ export const ClienteForm = ({ cliente, onSave, onCancel }: ClienteFormProps) => 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Validação básica
-    if (!formData.nome || !formData.cpf || !formData.rg || !formData.endereco) {
-      alert('Nome, RG, CPF e Endereço são obrigatórios.');
+    if (!formData.nome || !formData.email || !formData.senha || !formData.cpf || !formData.rg || !formData.endereco) {
+      alert('Nome, Email, Senha, RG, CPF e Endereço são obrigatórios.');
       return;
     }
     onSave(formData);
-    alert(cliente ? 'Cliente atualizado com sucesso!' : 'Cliente cadastrado com sucesso!');
   };
 
   return (
@@ -66,6 +69,30 @@ export const ClienteForm = ({ cliente, onSave, onCancel }: ClienteFormProps) => 
                 value={formData.nome}
                 onChange={e => handleInputChange('nome', e.target.value)}
                 placeholder="Digite o nome completo"
+                required
+                style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
+              />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <label htmlFor="email">Email *</label>
+              <input
+                id="email"
+                type="email"
+                value={formData.email}
+                onChange={e => handleInputChange('email', e.target.value)}
+                placeholder="cliente@exemplo.com"
+                required
+                style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
+              />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <label htmlFor="senha">Senha *</label>
+              <input
+                id="senha"
+                type="password"
+                value={formData.senha}
+                onChange={e => handleInputChange('senha', e.target.value)}
+                placeholder="Digite a senha"
                 required
                 style={{ padding: 8, borderRadius: 4, border: '1px solid #ccc' }}
               />
