@@ -3,11 +3,16 @@ package com.app.sistema_de_aluguel.models.Aluguel;
 import com.app.sistema_de_aluguel.enums.AluguelPedidoStatus;
 import com.app.sistema_de_aluguel.models.Usuarios.Cliente;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 
+@Entity
+@Getter
+@Setter
 public class AluguelPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
