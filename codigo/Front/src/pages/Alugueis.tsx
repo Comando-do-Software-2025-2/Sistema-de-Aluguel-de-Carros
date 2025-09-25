@@ -4,6 +4,7 @@ import { AluguelForm } from '@/components/AluguelForm';
 import { useAlugueis } from '@/hooks/useAlugueis';
 import { AluguelPedido, AluguelPedidoFormData } from '@/types/aluguel';
 import { useToast } from '@/hooks/use-toast';
+import Navbar from '@/components/ui/navbar';
 
 type View = 'list' | 'form' | 'view';
 
@@ -61,27 +62,30 @@ export const Alugueis = () => {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30 p-4">
-      <div className="max-w-7xl mx-auto">
-        {currentView === 'list' ? (
-          <AluguelList
-            alugueis={alugueis}
-            loading={loading}
-            onAdd={handleAddAluguel}
-            onEdit={handleEditAluguel}
-            onDelete={handleDeleteAluguel}
-            onView={handleViewAluguel}
-          />
-        ) : currentView === 'form' ? (
-          <AluguelForm
-            aluguel={aluguelEditando}
-            onSave={handleSaveAluguel}
-            onCancel={handleCancelForm}
-          />
-        ) : (
-          // View mode would be implemented here if needed
-          <div>Vista de detalhes não implementada ainda</div>
-        )}
+    <div className="min-h-screen bg-muted/30">
+      <Navbar />
+      <div className="p-4">
+        <div className="max-w-7xl mx-auto">
+          {currentView === 'list' ? (
+            <AluguelList
+              alugueis={alugueis}
+              loading={loading}
+              onAdd={handleAddAluguel}
+              onEdit={handleEditAluguel}
+              onDelete={handleDeleteAluguel}
+              onView={handleViewAluguel}
+            />
+          ) : currentView === 'form' ? (
+            <AluguelForm
+              aluguel={aluguelEditando}
+              onSave={handleSaveAluguel}
+              onCancel={handleCancelForm}
+            />
+          ) : (
+            // View mode would be implemented here if needed
+            <div>Vista de detalhes não implementada ainda</div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import { ClienteForm } from '@/components/ClienteForm';
 import { useClientes } from '@/hooks/useClientes';
 import { Cliente } from '@/types/cliente';
 import { useToast } from '@/hooks/use-toast';
+import Navbar from '@/components/ui/navbar';
 
 type View = 'list' | 'form';
 
@@ -63,8 +64,10 @@ export const Clientes = () => {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30 p-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-muted/30">
+      <Navbar />
+      <div className="p-4">
+        <div className="max-w-7xl mx-auto">
         {currentView === 'list' ? (
           <ClienteList
             clientes={clientes}
@@ -79,6 +82,7 @@ export const Clientes = () => {
             onCancel={handleCancelForm}
           />
         )}
+        </div>
       </div>
     </div>
   );

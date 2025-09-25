@@ -4,6 +4,7 @@ import { VeiculoForm } from '@/components/VeiculosForm';
 import { useVeiculos } from '@/hooks/useVeiculos';
 import { Veiculo } from '@/types/veiculo';
 import { useToast } from '@/hooks/use-toast';
+import Navbar from '@/components/ui/navbar';
 
 type View = 'list' | 'form';
 
@@ -47,22 +48,25 @@ export const Veiculos = () => {
   };
 
   return (
-    <div className="min-h-screen bg-muted/30 p-4">
-      <div className="max-w-7xl mx-auto">
-        {currentView === 'list' ? (
-          <VeiculoList
-            veiculos={veiculos}
-            onAdd={handleAddVeiculo}
-            onEdit={handleEditVeiculo}
-            onDelete={handleDeleteVeiculo}
-          />
-        ) : (
-          <VeiculoForm
-            veiculo={veiculoEditando}
-            onSave={handleSaveVeiculo}
-            onCancel={handleCancelForm}
-          />
-        )}
+    <div className="min-h-screen bg-muted/30">
+      <Navbar />
+      <div className="p-4">
+        <div className="max-w-7xl mx-auto">
+          {currentView === 'list' ? (
+            <VeiculoList
+              veiculos={veiculos}
+              onAdd={handleAddVeiculo}
+              onEdit={handleEditVeiculo}
+              onDelete={handleDeleteVeiculo}
+            />
+          ) : (
+            <VeiculoForm
+              veiculo={veiculoEditando}
+              onSave={handleSaveVeiculo}
+              onCancel={handleCancelForm}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
