@@ -39,6 +39,8 @@ public class AluguelPedido {
     @UpdateTimestamp
     private Instant updatedAt;
 
+    public AluguelPedido() {}
+
     public AluguelPedido(Cliente cliente, Automovel automovel, AluguelPedidoStatus status) {
         this.cliente = cliente;
         this.automovel = automovel;
