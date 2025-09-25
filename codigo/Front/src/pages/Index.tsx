@@ -35,33 +35,37 @@ const Index = () => {
             </Card>
           </Link>
 
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer border-border/50 hover:border-primary/50 opacity-60">
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-4 p-3 bg-muted rounded-full w-fit">
-                <Car className="h-8 w-8 text-muted-foreground" />
-              </div>
-              <CardTitle className="text-muted-foreground">Veículos</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Em desenvolvimento
-              </p>
-            </CardContent>
-          </Card>
+          <Link to="/veiculos">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer border-border/50 hover:border-primary/50">
+              <CardHeader className="text-center">
+                <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit">
+                  <Car className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle className="text-primary">Veículos</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground text-center">
+                  Cadastro e gerenciamento de veículos
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
 
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer border-border/50 hover:border-primary/50 opacity-60">
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-4 p-3 bg-muted rounded-full w-fit">
-                <FileText className="h-8 w-8 text-muted-foreground" />
-              </div>
-              <CardTitle className="text-muted-foreground">Locações</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Em desenvolvimento
-              </p>
-            </CardContent>
-          </Card>
+          <Link to="/alugueis">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer border-border/50 hover:border-primary/50">
+              <CardHeader className="text-center">
+                <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit">
+                  <FileText className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle className="text-primary">Alugueis</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground text-center">
+                  Gerenciamento de pedidos de aluguel
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
 
           <Card className="hover:shadow-lg transition-shadow cursor-pointer border-border/50 hover:border-primary/50 opacity-60">
             <CardHeader className="text-center">
@@ -85,15 +89,29 @@ const Index = () => {
               Bem-vindo ao Sistema de Locadora
             </h2>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              Comece gerenciando seus clientes. Um sistema completo para controlar 
-              todas as operações da sua locadora de veículos.
+              Sistema completo para controlar todas as operações da sua locadora de veículos.
+              Gerencie clientes, veículos e alugueis de forma integrada.
             </p>
-            <Link to="/clientes">
-              <Button size="lg" className="text-lg px-8">
-                <Users className="mr-2 h-5 w-5" />
-                Gerenciar Clientes
-              </Button>
-            </Link>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link to="/clientes">
+                <Button size="lg" className="text-lg px-8">
+                  <Users className="mr-2 h-5 w-5" />
+                  Gerenciar Clientes
+                </Button>
+              </Link>
+              <Link to="/veiculos">
+                <Button size="lg" variant="outline" className="text-lg px-8">
+                  <Car className="mr-2 h-5 w-5" />
+                  Gerenciar Veículos
+                </Button>
+              </Link>
+              <Link to="/alugueis">
+                <Button size="lg" variant="outline" className="text-lg px-8">
+                  <FileText className="mr-2 h-5 w-5" />
+                  Gerenciar Alugueis
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
