@@ -30,7 +30,7 @@ export const VeiculoList = ({ veiculos, onEdit, onDelete, onAdd }: VeiculoListPr
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
           <h2 style={{ fontSize: 24, fontWeight: 600, color: '#059669', display: 'flex', alignItems: 'center', gap: 8 }}>
             {/* Ícone de carro */}
-            <span style={{ display: 'inline-block', background: '#d1fae5', borderRadius: '50%', width: 32, height: 32, textAlign: 'center', lineHeight: '32px', fontWeight: 700, color: '#10b981' }}>🚗</span>
+            <span style={{ display: 'inline-block', background: '#d1fae5', borderRadius: '50%', width: 32, height: 32, textAlign: 'center', lineHeight: '32px', fontWeight: 700, color: '#10b981' }}>◐</span>
             Gerenciar Veículos
           </h2>
           <button onClick={onAdd} style={{ padding: '8px 16px', borderRadius: 4, background: '#059669', color: '#fff', border: 'none', fontWeight: 500, display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -44,7 +44,7 @@ export const VeiculoList = ({ veiculos, onEdit, onDelete, onAdd }: VeiculoListPr
             onChange={e => setSearchTerm(e.target.value)}
             style={{ width: '100%', padding: '8px 12px 8px 36px', borderRadius: 4, border: '1px solid #ccc' }}
           />
-          <span style={{ position: 'absolute', left: 10, top: 28, transform: 'translateY(-50%)', color: '#888' }}>🔍</span>
+          <span style={{ position: 'absolute', left: 10, top: 28, transform: 'translateY(-50%)', color: '#059669', fontSize: '16px' }}>⌕</span>
         </div>
       </div>
 
@@ -52,7 +52,7 @@ export const VeiculoList = ({ veiculos, onEdit, onDelete, onAdd }: VeiculoListPr
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {filteredVeiculos.length === 0 ? (
           <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #0001', padding: 32, textAlign: 'center' }}>
-            <div style={{ fontSize: 48, color: '#cbd5e1', marginBottom: 12 }}>�</div>
+            <div style={{ fontSize: 48, color: '#10b981', marginBottom: 12 }}>◐</div>
             <p style={{ fontSize: 18, fontWeight: 500, color: '#64748b' }}>
               {searchTerm ? 'Nenhum veículo encontrado' : 'Nenhum veículo cadastrado'}
             </p>
@@ -85,13 +85,13 @@ export const VeiculoList = ({ veiculos, onEdit, onDelete, onAdd }: VeiculoListPr
                     onClick={() => onEdit(veiculo)}
                     style={{ padding: '8px 12px', borderRadius: 4, background: '#fff', color: '#059669', border: '1px solid #059669', fontWeight: 500 }}
                   >
-                    ✏️ Editar
+                    ✎ Editar
                   </button>
                   <button
                     onClick={() => setConfirmDeleteId(veiculo.id)}
                     style={{ padding: '8px 12px', borderRadius: 4, background: '#fff', color: '#dc2626', border: '1px solid #dc2626', fontWeight: 500 }}
                   >
-                    🗑️ Excluir
+                    ✕ Excluir
                   </button>
                 </div>
               </div>

@@ -7,21 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from '@/components/ui/table';
-import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Search, Plus, MoreHorizontal, Edit, Trash2, Eye } from 'lucide-react';
+import { Search, Plus, Edit, Trash2, Eye } from 'lucide-react';
 
 interface AluguelListProps {
   alugueis: AluguelPedido[];
@@ -112,79 +98,123 @@ export const AluguelList = ({
           </div>
 
           {filteredAlugueis.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              {searchTerm ? 'Nenhum aluguel encontrado com os filtros aplicados.' : 'Nenhum aluguel cadastrado.'}
-            </div>
+            <Card className="text-center py-12">
+              <CardContent>
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl text-primary">⊡</span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2">
+                  {searchTerm ? 'Nenhum aluguel encontrado' : 'Nenhum aluguel cadastrado'}
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  {searchTerm 
+                    ? 'Tente ajustar os filtros de busca para encontrar aluguéis.' 
+                    : 'Comece criando seu primeiro pedido de aluguel.'
+                  }
+                </p>
+                {!searchTerm && (
+                  <Button onClick={onAdd} className="mt-2">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Criar Primeiro Aluguel
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
           ) : (
-            <div className="rounded-md border">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>ID</TableHead>
-                    <TableHead>Cliente</TableHead>
-                    <TableHead>CPF</TableHead>
-                    <TableHead>Veículo</TableHead>
-                    <TableHead>Placa</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Data Criação</TableHead>
-                    <TableHead>Ações</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredAlugueis.map((aluguel) => (
-                    <TableRow key={aluguel.id}>
-                      <TableCell className="font-medium">#{aluguel.id}</TableCell>
-                      <TableCell>{aluguel.cliente.nome}</TableCell>
-                      <TableCell>{aluguel.cliente.cpf}</TableCell>
-                      <TableCell>
-                        {aluguel.automovel.marca} {aluguel.automovel.modelo} ({aluguel.automovel.ano})
-                      </TableCell>
-                      <TableCell>{aluguel.automovel.placa}</TableCell>
-                      <TableCell>
-                        <Badge className={statusColors[aluguel.status]}>
-                          {statusLabels[aluguel.status]}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>{formatDate(aluguel.createdAt)}</TableCell>
-                      <TableCell>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-8 w-8 p-0">
-                              <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end">
-                            {onView && (
-                              <DropdownMenuItem onClick={() => onView(aluguel)}>
-                                <Eye className="mr-2 h-4 w-4" />
-                                Visualizar
-                              </DropdownMenuItem>
-                            )}
-                            <DropdownMenuItem onClick={() => onEdit(aluguel)}>
-                              <Edit className="mr-2 h-4 w-4" />
-                              Editar
-                            </DropdownMenuItem>
-                            <DropdownMenuItem 
-                              onClick={() => onDelete(aluguel.id)}
-                              className="text-red-600"
-                            >
-                              <Trash2 className="mr-2 h-4 w-4" />
-                              Excluir
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {filteredAlugueis.map((aluguel) => (
+                <Card key={aluguel.id} className="hover:shadow-lg transition-shadow">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                          <span className="text-lg font-bold text-primary">#{aluguel.id}</span>
+                        </div>
+                        <div>
+                          <CardTitle className="text-lg">{aluguel.cliente.nome}</CardTitle>
+                          <p className="text-sm text-muted-foreground">CPF: {aluguel.cliente.cpf}</p>
+                        </div>
+                      </div>
+                      <Badge className={statusColors[aluguel.status]}>
+                        {statusLabels[aluguel.status]}
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="space-y-3">
+                      <div className="bg-muted/50 rounded-lg p-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div className="w-6 h-6 bg-primary/20 rounded flex items-center justify-center">
+                            <span className="text-xs font-bold text-primary">◐</span>
+                          </div>
+                          <span className="font-medium text-sm">Veículo</span>
+                        </div>
+                        <p className="text-sm font-semibold">
+                          {aluguel.automovel.marca} {aluguel.automovel.modelo} ({aluguel.automovel.ano})
+                        </p>
+                        <p className="text-xs text-muted-foreground">Placa: {aluguel.automovel.placa}</p>
+                      </div>
+                      
+                      <div className="flex items-center justify-between text-xs text-muted-foreground">
+                        <span>Criado em: {formatDate(aluguel.createdAt)}</span>
+                        {aluguel.contratoId && (
+                          <span>Contrato: #{aluguel.contratoId}</span>
+                        )}
+                      </div>
+                      
+                      <div className="flex gap-2 pt-2">
+                        {onView && (
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            onClick={() => onView(aluguel)}
+                            className="flex-1"
+                          >
+                            <Eye className="mr-2 h-4 w-4" />
+                            Ver
+                          </Button>
+                        )}
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={() => onEdit(aluguel)}
+                          className="flex-1"
+                        >
+                          <Edit className="mr-2 h-4 w-4" />
+                          Editar
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          onClick={() => onDelete(aluguel.id)}
+                          className="text-red-600 hover:text-red-700 hover:border-red-300"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           )}
 
-          <div className="mt-4 text-sm text-muted-foreground">
-            Total: {filteredAlugueis.length} aluguel(is)
-            {searchTerm && ` (filtrado de ${alugueis.length})`}
-          </div>
+          {filteredAlugueis.length > 0 && (
+            <Card className="mt-6">
+              <CardContent className="py-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">
+                    Exibindo {filteredAlugueis.length} de {alugueis.length} aluguéis
+                  </span>
+                  {searchTerm && (
+                    <Badge variant="secondary" className="text-xs">
+                      Filtrado
+                    </Badge>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </CardContent>
       </Card>
     </div>

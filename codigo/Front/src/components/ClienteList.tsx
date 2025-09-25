@@ -53,7 +53,7 @@ export const ClienteList = ({ clientes, onEdit, onDelete, onAdd }: ClienteListPr
             onChange={e => setSearchTerm(e.target.value)}
             style={{ width: '100%', padding: '8px 12px 8px 36px', borderRadius: 4, border: '1px solid #ccc' }}
           />
-          <span style={{ position: 'absolute', left: 10, top: 28, transform: 'translateY(-50%)', color: '#888' }}>🔍</span>
+          <span style={{ position: 'absolute', left: 10, top: 28, transform: 'translateY(-50%)', color: '#059669', fontSize: '16px' }}>⌕</span>
         </div>
       </div>
 
@@ -61,7 +61,7 @@ export const ClienteList = ({ clientes, onEdit, onDelete, onAdd }: ClienteListPr
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         {filteredClientes.length === 0 ? (
           <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #0001', padding: 32, textAlign: 'center' }}>
-            <div style={{ fontSize: 48, color: '#cbd5e1', marginBottom: 12 }}>👤</div>
+            <div style={{ fontSize: 48, color: '#10b981', marginBottom: 12 }}>◉</div>
             <p style={{ fontSize: 18, fontWeight: 500, color: '#64748b' }}>
               {searchTerm ? 'Nenhum cliente encontrado' : 'Nenhum cliente cadastrado'}
             </p>
@@ -95,13 +95,13 @@ export const ClienteList = ({ clientes, onEdit, onDelete, onAdd }: ClienteListPr
                     onClick={() => onEdit(cliente)}
                     style={{ padding: '8px 12px', borderRadius: 4, background: '#fff', color: '#059669', border: '1px solid #059669', fontWeight: 500 }}
                   >
-                    ✏️ Editar
+                    ✎ Editar
                   </button>
                   <button
                     onClick={() => setConfirmDeleteId(cliente.id)}
                     style={{ padding: '8px 12px', borderRadius: 4, background: '#fff', color: '#dc2626', border: '1px solid #dc2626', fontWeight: 500 }}
                   >
-                    🗑️ Excluir
+                    ✕ Excluir
                   </button>
                 </div>
               </div>
