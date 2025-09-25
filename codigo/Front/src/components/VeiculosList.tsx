@@ -28,12 +28,12 @@ export const VeiculoList = ({ veiculos, onEdit, onDelete, onAdd }: VeiculoListPr
       {/* Header */}
       <div style={{ background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #0001', padding: 24 }}>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 16 }}>
-          <h2 style={{ fontSize: 24, fontWeight: 600, color: '#1d4ed8', display: 'flex', alignItems: 'center', gap: 8 }}>
+          <h2 style={{ fontSize: 24, fontWeight: 600, color: '#059669', display: 'flex', alignItems: 'center', gap: 8 }}>
             {/* Ícone de carro */}
-            <span style={{ display: 'inline-block', background: '#e0e7ff', borderRadius: '50%', width: 32, height: 32, textAlign: 'center', lineHeight: '32px', fontWeight: 700, color: '#6366f1' }}>🚗</span>
+            <span style={{ display: 'inline-block', background: '#d1fae5', borderRadius: '50%', width: 32, height: 32, textAlign: 'center', lineHeight: '32px', fontWeight: 700, color: '#10b981' }}>🚗</span>
             Gerenciar Veículos
           </h2>
-          <button onClick={onAdd} style={{ padding: '8px 16px', borderRadius: 4, background: '#1d4ed8', color: '#fff', border: 'none', fontWeight: 500, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <button onClick={onAdd} style={{ padding: '8px 16px', borderRadius: 4, background: '#059669', color: '#fff', border: 'none', fontWeight: 500, display: 'flex', alignItems: 'center', gap: 8 }}>
             <span style={{ fontWeight: 700, fontSize: 18 }}>+</span> Novo Veículo
           </button>
         </div>
@@ -60,7 +60,7 @@ export const VeiculoList = ({ veiculos, onEdit, onDelete, onAdd }: VeiculoListPr
               {searchTerm ? 'Tente ajustar os termos de busca' : 'Comece cadastrando seu primeiro veículo'}
             </p>
             {!searchTerm && (
-              <button onClick={onAdd} style={{ padding: '8px 16px', borderRadius: 4, background: '#1d4ed8', color: '#fff', border: 'none', fontWeight: 500, display: 'flex', alignItems: 'center', gap: 8, margin: '0 auto' }}>
+              <button onClick={onAdd} style={{ padding: '8px 16px', borderRadius: 4, background: '#059669', color: '#fff', border: 'none', fontWeight: 500, display: 'flex', alignItems: 'center', gap: 8, margin: '0 auto' }}>
                 <span style={{ fontWeight: 700, fontSize: 18 }}>+</span> Cadastrar Primeiro Veículo
               </button>
             )}
@@ -83,7 +83,7 @@ export const VeiculoList = ({ veiculos, onEdit, onDelete, onAdd }: VeiculoListPr
                 <div style={{ display: 'flex', flexDirection: 'row', gap: 8 }}>
                   <button
                     onClick={() => onEdit(veiculo)}
-                    style={{ padding: '8px 12px', borderRadius: 4, background: '#fff', color: '#1d4ed8', border: '1px solid #1d4ed8', fontWeight: 500 }}
+                    style={{ padding: '8px 12px', borderRadius: 4, background: '#fff', color: '#059669', border: '1px solid #059669', fontWeight: 500 }}
                   >
                     ✏️ Editar
                   </button>
@@ -103,7 +103,7 @@ export const VeiculoList = ({ veiculos, onEdit, onDelete, onAdd }: VeiculoListPr
                     Tem certeza que deseja excluir o veículo <strong>{veiculo.marca} {veiculo.modelo}</strong>? Esta ação não pode ser desfeita.
                   </div>
                   <div style={{ display: 'flex', gap: 8 }}>
-                    <button onClick={() => setConfirmDeleteId(null)} style={{ padding: '6px 16px', borderRadius: 4, background: '#fff', color: '#1d4ed8', border: '1px solid #1d4ed8', fontWeight: 500 }}>Cancelar</button>
+                    <button onClick={() => setConfirmDeleteId(null)} style={{ padding: '6px 16px', borderRadius: 4, background: '#fff', color: '#059669', border: '1px solid #059669', fontWeight: 500 }}>Cancelar</button>
                     <button onClick={() => { onDelete(veiculo.id); setConfirmDeleteId(null); }} style={{ padding: '6px 16px', borderRadius: 4, background: '#dc2626', color: '#fff', border: 'none', fontWeight: 500 }}>Excluir</button>
                   </div>
                 </div>

@@ -55,7 +55,7 @@ export const ClienteForm = ({ cliente, onSave, onCancel }: ClienteFormProps) => 
 
   return (
     <div style={{ maxWidth: 800, margin: '0 auto', background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #0001', padding: 24 }}>
-      <h2 style={{ fontSize: 24, fontWeight: 600, color: '#1d4ed8', marginBottom: 16 }}>
+      <h2 style={{ fontSize: 24, fontWeight: 600, color: '#059669', marginBottom: 16 }}>
         {cliente ? 'Editar Cliente' : 'Novo Cliente'}
       </h2>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
@@ -145,10 +145,10 @@ export const ClienteForm = ({ cliente, onSave, onCancel }: ClienteFormProps) => 
 
         {/* Botões */}
         <div style={{ display: 'flex', gap: 16, paddingTop: 16 }}>
-          <button type="submit" style={{ flex: 1, padding: 12, borderRadius: 4, background: '#1d4ed8', color: '#fff', border: 'none', fontWeight: 500 }}>
+          <button type="submit" style={{ flex: 1, padding: 12, borderRadius: 4, background: '#059669', color: '#fff', border: 'none', fontWeight: 500 }}>
             {cliente ? 'Atualizar Cliente' : 'Cadastrar Cliente'}
           </button>
-          <button type="button" onClick={onCancel} style={{ flex: 1, padding: 12, borderRadius: 4, background: '#fff', color: '#1d4ed8', border: '1px solid #1d4ed8', fontWeight: 500 }}>
+          <button type="button" onClick={onCancel} style={{ flex: 1, padding: 12, borderRadius: 4, background: '#fff', color: '#059669', border: '1px solid #059669', fontWeight: 500 }}>
             Cancelar
           </button>
         </div>
