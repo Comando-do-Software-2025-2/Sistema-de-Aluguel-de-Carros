@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Users, FileText, Car, BarChart3 } from 'lucide-react';
+import { Users, FileText, Car, ScrollText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/ui/navbar';
 
@@ -69,19 +69,21 @@ const Index = () => {
             </Card>
           </Link>
 
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer border-border/50 hover:border-primary/50 opacity-60">
-            <CardHeader className="text-center">
-              <div className="mx-auto mb-4 p-3 bg-muted rounded-full w-fit">
-                <BarChart3 className="h-8 w-8 text-muted-foreground" />
-              </div>
-              <CardTitle className="text-muted-foreground">Relatórios</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Em desenvolvimento
-              </p>
-            </CardContent>
-          </Card>
+          <Link to="/contratos">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer border-border/50 hover:border-primary/50">
+              <CardHeader className="text-center">
+                <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit">
+                  <ScrollText className="h-8 w-8 text-primary" />
+                </div>
+                <CardTitle className="text-primary">Contratos</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground text-center">
+                  Gerenciamento de contratos de aluguel
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
 
         {/* Ações Principais */}
@@ -92,7 +94,7 @@ const Index = () => {
             </h2>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
               Sistema completo para controlar todas as operações da sua locadora de veículos.
-              Gerencie clientes, veículos e alugueis de forma integrada.
+              Gerencie clientes, veículos, aluguéis e contratos de forma integrada.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link to="/clientes">
@@ -110,7 +112,13 @@ const Index = () => {
               <Link to="/alugueis">
                 <Button size="lg" variant="outline" className="text-lg px-8">
                   <FileText className="mr-2 h-5 w-5" />
-                  Gerenciar Alugueis
+                  Gerenciar Aluguéis
+                </Button>
+              </Link>
+              <Link to="/contratos">
+                <Button size="lg" variant="outline" className="text-lg px-8">
+                  <ScrollText className="mr-2 h-5 w-5" />
+                  Gerenciar Contratos
                 </Button>
               </Link>
             </div>
