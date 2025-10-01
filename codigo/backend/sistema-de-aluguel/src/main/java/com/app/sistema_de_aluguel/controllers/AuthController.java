@@ -7,6 +7,7 @@ import com.app.sistema_de_aluguel.models.Usuarios.Cliente;
 import com.app.sistema_de_aluguel.models.Usuarios.Usuario;
 import com.app.sistema_de_aluguel.repositories.UsuarioRepository;
 import com.app.sistema_de_aluguel.security.TokenService;
+import com.app.sistema_de_aluguel.services.ClienteService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,6 +40,9 @@ public class AuthController {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private ClienteService clienteService;
 
     @Value("${api.security.token.secret}")
     private String secret;
@@ -85,7 +89,6 @@ public class AuthController {
         novoCliente.setProfissao(data.getProfissao());
 
         Cliente clienteSalvo = clienteService.create(novoCliente);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
     }
 

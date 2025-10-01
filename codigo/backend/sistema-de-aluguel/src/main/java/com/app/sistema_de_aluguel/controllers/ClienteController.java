@@ -28,11 +28,6 @@ public class ClienteController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<Cliente> create(@RequestBody Cliente cliente) {
-        return ResponseEntity.ok(clienteService.create(cliente));
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<Optional<Cliente>> update(@PathVariable Long id, @RequestBody Cliente clienteAtualizado) {
         return ResponseEntity.ok(clienteService.update(id, clienteAtualizado));
