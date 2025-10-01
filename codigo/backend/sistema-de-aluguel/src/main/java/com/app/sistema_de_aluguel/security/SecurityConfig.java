@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/login", "/clientes").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login", "auth/register", "/clientes").permitAll()
                         .requestMatchers(HttpMethod.GET, "/veiculos").permitAll()
                         .anyRequest().authenticated()
                 )
