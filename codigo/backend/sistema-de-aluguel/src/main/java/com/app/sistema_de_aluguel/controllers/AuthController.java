@@ -1,5 +1,8 @@
 package com.app.sistema_de_aluguel.controllers;
 
+import com.app.sistema_de_aluguel.dto.AuthDTO;
+import com.app.sistema_de_aluguel.dto.TokenDTO;
+import com.app.sistema_de_aluguel.models.Usuarios.Usuario;
 import com.app.sistema_de_aluguel.repositories.UsuarioRepository;
 import com.app.sistema_de_aluguel.security.TokenService;
 import jakarta.servlet.http.Cookie;
@@ -41,7 +44,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody @Valid AuthDTO data, HttpServletResponse response) {
         try {
-            var usernamePassword = new UsernamePasswordAuthenticationToken(data.getLogin(), data.getPassword());
+            var usernamePassword = new UsernamePasswordAuthenticationToken(data.getEmail(), data.getSenha());
             var auth = this.authenticationManager.authenticate(usernamePassword);
 
             String token = tokenService.generateToken((Usuario) auth.getPrincipal());
@@ -65,13 +68,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO data) {
-        if (usuarioRepository.findByLogin(data.getLogin()) != null) {
+    public ResponseEntity<?> register(@RequestBody @Valid AuthDTO data) {
+        if (usuarioRepository.findByEmail(data.getEmail()) != null) {
             return ResponseEntity.badRequest().build();
         }
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.getPassword());
-        Usuario usuario = new Usuario(data.getLogin(), encryptedPassword, data.getRole());
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.getSenha());
+        Usuario usuario = new Usuario(data.getSenha(), encryptedPassword, data.getRole());
 
         this.usuarioRepository.save(usuario);
 
@@ -79,7 +82,7 @@ public class AuthController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getLoginById(@PathVariable int id) {
+    public ResponseEntity<?> getLoginById(@PathVariable Long id) {
         if (!usuarioRepository.existsById(id)) {
             throw new EmptyObjectException("Usuário não encontrado!");
         }
