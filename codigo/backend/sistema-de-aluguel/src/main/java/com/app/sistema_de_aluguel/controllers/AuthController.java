@@ -1,7 +1,9 @@
 package com.app.sistema_de_aluguel.controllers;
 
 import com.app.sistema_de_aluguel.dto.AuthDTO;
+import com.app.sistema_de_aluguel.dto.RegisterDTO;
 import com.app.sistema_de_aluguel.dto.TokenDTO;
+import com.app.sistema_de_aluguel.models.Usuarios.Cliente;
 import com.app.sistema_de_aluguel.models.Usuarios.Usuario;
 import com.app.sistema_de_aluguel.repositories.UsuarioRepository;
 import com.app.sistema_de_aluguel.security.TokenService;
@@ -60,7 +62,7 @@ public class AuthController {
                     .build();
 
             response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-            return ResponseEntity.ok(auth);
+            return ResponseEntity.ok(new TokenDTO(token));
 
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos");
@@ -68,25 +70,23 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody @Valid AuthDTO data) {
-        if (usuarioRepository.findByEmail(data.getEmail()) != null) {
-            return ResponseEntity.badRequest().build();
+    public ResponseEntity<?> register(@RequestBody @Valid RegisterDTO data) {
+        if (this.usuarioRepository.findByEmail(data.getEmail()) != null) {
+            return ResponseEntity.badRequest().body("Um usuário com este e-mail já existe.");
         }
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.getSenha());
-        Usuario usuario = new Usuario(data.getSenha(), encryptedPassword, data.getRole());
+        Cliente novoCliente = new Cliente();
+        novoCliente.setNome(data.getNome());
+        novoCliente.setEmail(data.getEmail());
+        novoCliente.setSenha(data.getSenha()); // A senha será criptografada pelo serviço
+        novoCliente.setRg(data.getRg());
+        novoCliente.setCpf(data.getCpf());
+        novoCliente.setEndereco(data.getEndereco());
+        novoCliente.setProfissao(data.getProfissao());
 
-        this.usuarioRepository.save(usuario);
+        Cliente clienteSalvo = clienteService.create(novoCliente);
 
-        return ResponseEntity.ok(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getLoginById(@PathVariable Long id) {
-        if (!usuarioRepository.existsById(id)) {
-            throw new EmptyObjectException("Usuário não encontrado!");
-        }
-        UserDetails user = usuarioRepository.getReferenceById(id);
-        return ResponseEntity.ok(user);
-    }
 }
