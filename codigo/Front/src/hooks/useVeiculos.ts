@@ -16,6 +16,7 @@ export const useVeiculos = () => {
       const res = await fetch(API_URL);
       if (!res.ok) throw new Error('Erro ao buscar veículos');
       const data = await res.json();
+      console.log(data);
       setVeiculos(data);
     } catch (err: any) {
       setError(err.message || 'Erro desconhecido');

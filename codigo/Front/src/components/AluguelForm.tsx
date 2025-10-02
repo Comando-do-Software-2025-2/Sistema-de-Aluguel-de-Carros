@@ -74,6 +74,9 @@ export const AluguelForm = ({ aluguel, onSave, onCancel }: AluguelFormProps) => 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    console.log("Selected cliente:", selectedCliente);
+    console.log("Selected veiculo:", selectedVeiculo);
     
     if (!selectedCliente || !selectedVeiculo) {
       alert('Por favor, selecione um cliente e um veículo.');
@@ -81,9 +84,9 @@ export const AluguelForm = ({ aluguel, onSave, onCancel }: AluguelFormProps) => 
     }
 
     onSave({
-      ...formData,
       clienteId: selectedCliente.id,
-      automovelId: selectedVeiculo.id
+      automovelId: selectedVeiculo.id,
+      status: formData.status
     });
   };
 

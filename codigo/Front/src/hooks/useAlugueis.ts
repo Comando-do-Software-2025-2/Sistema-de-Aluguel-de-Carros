@@ -34,8 +34,11 @@ export const useAlugueis = () => {
   }, [fetchAlugueis]);
 
   const adicionarAluguel = async (data: AluguelPedidoFormData) => {
+    console.log(data);
     setLoading(true);
     try {
+      console.log(data);
+
       const response = await fetch(API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

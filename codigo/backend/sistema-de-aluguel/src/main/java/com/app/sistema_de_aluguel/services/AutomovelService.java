@@ -51,6 +51,7 @@ public class AutomovelService {
 
     private AutomovelDTO convertToDTO(Automovel automovel) {
         AutomovelDTO dto = new AutomovelDTO();
+        dto.setId(automovel.getId());
         dto.setMatricula(automovel.getMatricula());
         dto.setAno(automovel.getAno().getValue());
         dto.setMarca(automovel.getMarca());

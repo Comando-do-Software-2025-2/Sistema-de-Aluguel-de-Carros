@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AutomovelDTO {
+    private Long id;
     private String matricula;
     private Integer ano;
     private String marca;
