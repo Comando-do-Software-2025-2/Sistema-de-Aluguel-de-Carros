@@ -19,15 +19,17 @@ public class ContratoController {
     private final ContratoService contratoService;
 
     @PostMapping
-    public ResponseEntity<Contrato> createContrato(@RequestBody @Valid ContratoDTO contratoDTO) {
-        Contrato contrato = contratoService.create(contratoDTO);
-        return ResponseEntity.ok(contrato);
+    public ResponseEntity<ContratoResponseDTO> createContrato(@RequestBody @Valid ContratoDTO contratoDTO) {
+        Contrato novoContrato = contratoService.create(contratoDTO);
+        ContratoResponseDTO responseDTO = contratoService.convertToDTO(novoContrato);
+        return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ContratoResponseDTO> getContrato(@PathVariable Long id) {
-        ContratoResponseDTO contrato = contratoService.findById(id).get();
-        return ResponseEntity.ok(contrato);
+        return contratoService.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")

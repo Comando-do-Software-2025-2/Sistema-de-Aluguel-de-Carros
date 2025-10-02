@@ -33,7 +33,7 @@ public class ContratoService {
         return contratoRepository.findById(id).map(this::convertToDTO);
     }
 
-    private ContratoResponseDTO convertToDTO(Contrato contrato) {
+    public ContratoResponseDTO convertToDTO(Contrato contrato) {
         ContratoResponseDTO dto = new ContratoResponseDTO();
         dto.setId(contrato.getId());
         dto.setDataInicio(contrato.getDataInicio());
