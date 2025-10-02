@@ -55,4 +55,12 @@ public class AgenteService {
         aluguel.setStatus(AluguelStatus.APROVADO);
         aluguelRepository.save(aluguel);
     }
+
+    public void rejeitar(Long aluguelId) {
+        Aluguel aluguel = aluguelRepository.findById(aluguelId)
+                .orElseThrow(() -> new EntityNotFoundException("Pedido de aluguel não encontrado com o id: " + aluguelId));
+
+        aluguel.setStatus(AluguelStatus.REJEITADO);
+        aluguelRepository.save(aluguel);
+    }
 }

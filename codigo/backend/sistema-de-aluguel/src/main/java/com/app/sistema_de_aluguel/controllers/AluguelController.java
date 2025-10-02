@@ -62,4 +62,10 @@ public class AluguelController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/{id}/rejeitar")
+    public ResponseEntity<HttpStatus> rejeitar(@PathVariable Long id) {
+        agenteService.rejeitar(id);
+        return ResponseEntity.ok().build();
+    }
+
 }
