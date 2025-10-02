@@ -5,6 +5,7 @@ import com.app.sistema_de_aluguel.dto.AluguelFormDTO;
 import com.app.sistema_de_aluguel.enums.AluguelStatus;
 import com.app.sistema_de_aluguel.services.AluguelService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,4 +53,11 @@ public class AluguelController {
         aluguelService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/{id}/aprovar")
+    public ResponseEntity<HttpStatus> aprovar(@PathVariable Long id) {
+        agenteService.aprovar(id);
+        return ResponseEntity.ok().build();
+    }
+
 }

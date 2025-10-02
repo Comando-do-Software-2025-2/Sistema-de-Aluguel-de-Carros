@@ -1,7 +1,7 @@
 package com.app.sistema_de_aluguel.enums;
 
 public enum AluguelStatus {
-    AGURADANDO_ANALISE,
+    AGUARDANDO_ANALISE,
     EM_ANALISE,
     APROVADO,
     REJEITADO,
