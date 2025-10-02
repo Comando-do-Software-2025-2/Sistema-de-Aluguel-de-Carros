@@ -1,15 +1,13 @@
 package com.app.sistema_de_aluguel.controllers;
 
 import com.app.sistema_de_aluguel.dto.ContratoDTO;
+import com.app.sistema_de_aluguel.models.Aluguel.Contrato;
 import com.app.sistema_de_aluguel.services.ContratoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/contrato")
@@ -23,4 +21,16 @@ public class ContratoController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Contrato> getContrato(@PathVariable Long id) {
+        Contrato contrato = contratoService.findById(id).orElseThrow();
+        return ResponseEntity.ok(contrato);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Contrato> updateContrato(@PathVariable Long id,
+                                                   @RequestBody @Valid ContratoDTO contratoDTO) {
+        Contrato contrato = contratoService.update(id, contratoDTO);
+        return ResponseEntity.ok(contrato);
+    }
 }
