@@ -12,8 +12,7 @@ public class AgenteService {
     private final AgenteRepository agenteRepository;
 
     public void cadastrar(AgenteDTO dto) {
-        Agente agente = new Agente(dto.getSenha(), dto.getEmail(), dto.getNome(), dto.getEndereco(),
-                dto.getPe)
+
         agenteRepository.save(agente);
     }
 }
