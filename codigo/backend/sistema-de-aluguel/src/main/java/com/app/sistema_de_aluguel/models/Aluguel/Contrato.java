@@ -46,4 +46,11 @@ public class Contrato {
         this.dataFim = dataFim;
         this.status = ContratoStatus.ATIVO;
     }
+
+    public Contrato(Aluguel pedido, LocalDate dataInicio, LocalDate dataFim) {
+        this.pedido = pedido;
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.status = ContratoStatus.ATIVO;
+    }
 }

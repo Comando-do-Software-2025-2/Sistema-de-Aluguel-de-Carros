@@ -18,7 +18,7 @@ public class ContratoService {
     public void create(ContratoDTO contratoDTO) {
         Contrato contrato = new Contrato(contratoDTO.getPedido(),
                 contratoDTO.getContratoDeCredito(),
-                contratoDTO.getDataFim(),
+                contratoDTO.getDataInicio(),
                 contratoDTO.getDataFim());
         contratoRepository.save(contrato);
     }
