@@ -1,6 +1,7 @@
 package com.app.sistema_de_aluguel.controllers;
 
 import com.app.sistema_de_aluguel.dto.ContratoDTO;
+import com.app.sistema_de_aluguel.dto.ContratoResponseDTO;
 import com.app.sistema_de_aluguel.models.Aluguel.Contrato;
 import com.app.sistema_de_aluguel.services.ContratoService;
 import jakarta.validation.Valid;
@@ -18,14 +19,14 @@ public class ContratoController {
     private final ContratoService contratoService;
 
     @PostMapping
-    public ResponseEntity<HttpStatus> createContrato(@RequestBody @Valid ContratoDTO contratoDTO) {
-        contratoService.create(contratoDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Contrato> createContrato(@RequestBody @Valid ContratoDTO contratoDTO) {
+        Contrato contrato = contratoService.create(contratoDTO);
+        return ResponseEntity.ok(contrato);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Contrato> getContrato(@PathVariable Long id) {
-        Contrato contrato = contratoService.findById(id).orElseThrow();
+    public ResponseEntity<ContratoResponseDTO> getContrato(@PathVariable Long id) {
+        ContratoResponseDTO contrato = contratoService.findById(id).get();
         return ResponseEntity.ok(contrato);
     }
 

@@ -21,9 +21,9 @@ public class Contrato {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "pedido_id", referencedColumnName = "id")
+    @JoinColumn(name = "aluguel_id", referencedColumnName = "id")
     @NotNull
-    private Aluguel pedido;
+    private Aluguel aluguel;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "contrato_de_credito_id", referencedColumnName = "id")
@@ -39,16 +39,16 @@ public class Contrato {
     @Enumerated(EnumType.STRING)
     private ContratoStatus status;
 
-    public Contrato(Aluguel pedido, ContratoDeCredito contratoDeCredito, LocalDate dataInicio, LocalDate dataFim) {
-        this.pedido = pedido;
+    public Contrato(Aluguel aluguel, ContratoDeCredito contratoDeCredito, LocalDate dataInicio, LocalDate dataFim) {
+        this.aluguel = aluguel;
         this.contratoDeCredito = contratoDeCredito;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.status = ContratoStatus.ATIVO;
     }
 
-    public Contrato(Aluguel pedido, LocalDate dataInicio, LocalDate dataFim) {
-        this.pedido = pedido;
+    public Contrato(Aluguel aluguel, LocalDate dataInicio, LocalDate dataFim) {
+        this.aluguel = aluguel;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.status = ContratoStatus.ATIVO;
