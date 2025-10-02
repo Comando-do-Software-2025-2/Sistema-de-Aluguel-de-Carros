@@ -39,4 +39,18 @@ public class ClienteController {
         clienteService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping
+    public ResponseEntity<Cliente> create(@RequestBody ClienteSimpleDTO clienteSimpleDTO) {
+        Cliente cliente = new Cliente();
+        cliente.setNome(clienteSimpleDTO.getNome());
+        cliente.setRg(clienteSimpleDTO.getRg());
+        cliente.setCpf(clienteSimpleDTO.getCpf());
+        cliente.setEndereco(clienteSimpleDTO.getEndereco());
+        cliente.setProfissao(clienteSimpleDTO.getProfissao());
+        cliente.setSenha(clienteSimpleDTO.getSenha());
+
+        Cliente savedCliente = clienteService.create(cliente);
+        return ResponseEntity.ok(savedCliente);
+    }
 }

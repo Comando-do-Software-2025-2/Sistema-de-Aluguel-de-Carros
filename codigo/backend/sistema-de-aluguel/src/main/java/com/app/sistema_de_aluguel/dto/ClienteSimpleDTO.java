@@ -14,4 +14,5 @@ public class ClienteSimpleDTO {
     private String cpf;
     private String endereco;
     private String profissao;
+    private String senha;
 }
