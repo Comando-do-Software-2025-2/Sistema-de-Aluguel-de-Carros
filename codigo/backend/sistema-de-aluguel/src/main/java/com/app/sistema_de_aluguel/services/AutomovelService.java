@@ -51,7 +51,6 @@ public class AutomovelService {
 
     private AutomovelDTO convertToDTO(Automovel automovel) {
         AutomovelDTO dto = new AutomovelDTO();
-        dto.setId(automovel.getId());
         dto.setMatricula(automovel.getMatricula());
         dto.setAno(automovel.getAno().getValue());
         dto.setMarca(automovel.getMarca());
@@ -62,7 +61,6 @@ public class AutomovelService {
 
     private Automovel convertToEntity(AutomovelDTO dto) {
         Automovel automovel = new Automovel();
-        automovel.setId(dto.getId());
         automovel.setMatricula(dto.getMatricula());
         automovel.setAno(Year.of(dto.getAno()));
         automovel.setMarca(dto.getMarca());
