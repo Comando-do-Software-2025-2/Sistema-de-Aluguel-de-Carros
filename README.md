@@ -11,7 +11,6 @@ O backend foi desenvolvido em **Java + Spring Boot** e o frontend em **React**.
 - [Sobre o Projeto](#-sobre-o-projeto)
 - [Contexto](#-contexto)
 - [Habilidades](#-habilidades)
-- [Demo](#-demo)
 - [Tecnologias Utilizadas](#-tecnologias-utilizadas)
   - [Front-end](#front-end)
   - [Back-end](#back-end)
