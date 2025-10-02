@@ -108,30 +108,30 @@ Após logar no sistema, o usuário pode:
 
 | Endpoint                | Método | Descrição                           |
 |--------------------------|--------|-------------------------------------|
-| `/login`                | POST   | Faz login do usuário                |
-| `/users/{id}/password`  | PUT    | Atualiza a senha de um usuário      |
-| `/clients`              | GET    | Lista todos os clientes             |
-| `/clients/{id}`         | GET    | Retorna um cliente específico       |
-| `/clients`              | POST   | Cria um novo cliente                |
-| `/clients/{id}`         | PUT    | Atualiza dados de um cliente        |
-| `/clients/{id}`         | DELETE | Remove um cliente                   |
-| `/vehicles`             | GET    | Lista veículos cadastrados          |
-| `/vehicles/{id}`        | GET    | Retorna veículo pelo ID             |
-| `/vehicles`             | POST   | Cadastra um novo veículo            |
-| `/vehicles/{id}`        | PUT    | Atualiza veículo existente          |
-| `/vehicles/{id}`        | DELETE | Remove veículo                      |
-| `/orders`               | GET    | Lista pedidos                       |
-| `/orders/{id}`          | GET    | Retorna pedido pelo ID              |
-| `/orders`               | POST   | Cria um novo pedido                 |
-| `/orders/{id}`          | PUT    | Atualiza pedido                     |
-| `/orders/{id}/status`   | PATCH  | Atualiza status de um pedido        |
-| `/contracts`            | GET    | Lista contratos                     |
-| `/contracts/{id}`       | GET    | Retorna contrato pelo ID            |
-| `/contracts`            | POST   | Cria contrato                       |
-| `/contracts/{id}`       | PUT    | Atualiza contrato                   |
-| `/contracts/{id}`       | DELETE | Remove contrato                     |
-| `/agents`               | GET    | Lista agentes                       |
-| `/agents`               | POST   | Cadastra um agente                  |
+| `/auth/login`           | POST   | Faz login do usuário                |
+| `/auth/register`        | POST   | Registra um novo cliente            |
+| `/clientes`             | GET    | Lista todos os clientes             |
+| `/clientes/{id}`        | GET    | Retorna um cliente específico       |
+| `/clientes/{id}`        | PUT    | Atualiza dados de um cliente        |
+| `/clientes/{id}`        | DELETE | Remove um cliente                   |
+| `/veiculos`             | GET    | Lista veículos cadastrados          |
+| `/veiculos/{id}`        | GET    | Retorna veículo pelo ID             |
+| `/veiculos`             | POST   | Cadastra um novo veículo            |
+| `/veiculos/{id}`        | PUT    | Atualiza veículo existente          |
+| `/veiculos/{id}`        | DELETE | Remove veículo                      |
+| `/alugueis`             | GET    | Lista alugueis                      |
+| `/alugueis/{id}`        | GET    | Retorna aluguel pelo ID             |
+| `/alugueis`             | POST   | Cria um novo aluguel                |
+| `/alugueis/{id}`        | PUT    | Atualiza aluguel                    |
+| `/alugueis/{id}`        | DELETE | Remove aluguel                      |
+| `/alugueis/status/{status}` | GET    | Lista alugueis por status           |
+| `/alugueis/{id}/aprovar`    | POST   | Aprova um aluguel                   |
+| `/alugueis/{id}/rejeitar`   | POST   | Rejeita um aluguel                  |
+| `/contratos`            | GET    | Lista contratos                     |
+| `/contratos/{id}`       | GET    | Retorna contrato pelo ID            |
+| `/contratos`            | POST   | Cria contrato                       |
+| `/contratos/{id}`       | PUT    | Atualiza contrato                   |
+| `/agentes`              | POST   | Cadastra um agente                  |
 
 ---
 
