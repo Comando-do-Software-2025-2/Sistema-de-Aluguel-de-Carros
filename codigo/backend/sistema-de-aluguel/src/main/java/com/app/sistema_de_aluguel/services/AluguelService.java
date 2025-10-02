@@ -1,14 +1,14 @@
 package com.app.sistema_de_aluguel.services;
 
-import com.app.sistema_de_aluguel.dto.AluguelPedidoDTO;
-import com.app.sistema_de_aluguel.dto.AluguelPedidoFormDTO;
+import com.app.sistema_de_aluguel.dto.AluguelDTO;
+import com.app.sistema_de_aluguel.dto.AluguelFormDTO;
 import com.app.sistema_de_aluguel.dto.AutomovelDTO;
 import com.app.sistema_de_aluguel.dto.ClienteSimpleDTO;
-import com.app.sistema_de_aluguel.enums.AluguelPedidoStatus;
-import com.app.sistema_de_aluguel.models.Aluguel.AluguelPedido;
+import com.app.sistema_de_aluguel.enums.AluguelStatus;
+import com.app.sistema_de_aluguel.models.Aluguel.Aluguel;
 import com.app.sistema_de_aluguel.models.Aluguel.Automovel;
 import com.app.sistema_de_aluguel.models.Usuarios.Cliente;
-import com.app.sistema_de_aluguel.repositories.AluguelPedidoRepository;
+import com.app.sistema_de_aluguel.repositories.AluguelRepository;
 import com.app.sistema_de_aluguel.repositories.AutomovelRepository;
 import com.app.sistema_de_aluguel.repositories.ClienteRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,43 +20,43 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class AluguelPedidoService {
-    private final AluguelPedidoRepository aluguelPedidoRepository;
+public class AluguelService {
+    private final AluguelRepository aluguelRepository;
     private final ClienteRepository clienteRepository;
     private final AutomovelRepository automovelRepository;
     
-    public List<AluguelPedidoDTO> findAll() {
-        return aluguelPedidoRepository.findAll().stream()
+    public List<AluguelDTO> findAll() {
+        return aluguelRepository.findAll().stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public Optional<AluguelPedidoDTO> findById(Long id) {
-        return aluguelPedidoRepository.findById(id)
+    public Optional<AluguelDTO> findById(Long id) {
+        return aluguelRepository.findById(id)
                 .map(this::convertToDTO);
     }
 
-    public List<AluguelPedidoDTO> findByStatus(AluguelPedidoStatus status) {
-        return aluguelPedidoRepository.findByStatus(status).stream()
+    public List<AluguelDTO> findByStatus(AluguelStatus status) {
+        return aluguelRepository.findByStatus(status).stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    public AluguelPedidoDTO create(AluguelPedidoFormDTO formDTO) {
+    public AluguelDTO create(AluguelFormDTO formDTO) {
         Cliente cliente = clienteRepository.findById(formDTO.getClienteId())
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
         
         Automovel automovel = automovelRepository.findById(formDTO.getAutomovelId())
                 .orElseThrow(() -> new RuntimeException("Automóvel não encontrado"));
 
-        AluguelPedido aluguelPedido = new AluguelPedido(cliente, automovel, formDTO.getStatus());
-        AluguelPedido savedPedido = aluguelPedidoRepository.save(aluguelPedido);
+        Aluguel aluguel = new Aluguel(cliente, automovel, formDTO.getStatus());
+        Aluguel savedPedido = aluguelRepository.save(aluguel);
         
         return convertToDTO(savedPedido);
     }
 
-    public Optional<AluguelPedidoDTO> update(Long id, AluguelPedidoFormDTO formDTO) {
-        return aluguelPedidoRepository.findById(id)
+    public Optional<AluguelDTO> update(Long id, AluguelFormDTO formDTO) {
+        return aluguelRepository.findById(id)
                 .map(pedido -> {
                     if (formDTO.getClienteId() != null) {
                         Cliente cliente = clienteRepository.findById(formDTO.getClienteId())
@@ -74,16 +74,16 @@ public class AluguelPedidoService {
                         pedido.setStatus(formDTO.getStatus());
                     }
                     
-                    return convertToDTO(aluguelPedidoRepository.save(pedido));
+                    return convertToDTO(aluguelRepository.save(pedido));
                 });
     }
 
     public void delete(Long id) {
-        aluguelPedidoRepository.deleteById(id);
+        aluguelRepository.deleteById(id);
     }
 
-    private AluguelPedidoDTO convertToDTO(AluguelPedido pedido) {
-        AluguelPedidoDTO dto = new AluguelPedidoDTO();
+    private AluguelDTO convertToDTO(Aluguel pedido) {
+        AluguelDTO dto = new AluguelDTO();
         dto.setId(pedido.getId());
         dto.setStatus(pedido.getStatus());
         dto.setCreatedAt(pedido.getCreatedAt());

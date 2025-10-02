@@ -21,10 +21,10 @@ public class Contrato {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "pedido_id", referencedColumnName = "id")
-    private AluguelPedido pedido;
+    private Aluguel pedido;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "contrado_de_credito_id", referencedColumnName = "id")
+    @JoinColumn(name = "contrato_de_credito_id", referencedColumnName = "id")
     private ContratoDeCredito contratoDeCredito;
 
     private LocalDate dataInicio;
@@ -34,7 +34,7 @@ public class Contrato {
     @Enumerated(EnumType.STRING)
     private ContratoStatus status;
 
-    public Contrato(AluguelPedido pedido, ContratoDeCredito contratoDeCredito, LocalDate dataInicio, LocalDate dataFim) {
+    public Contrato(Aluguel pedido, ContratoDeCredito contratoDeCredito, LocalDate dataInicio, LocalDate dataFim) {
         this.pedido = pedido;
         this.contratoDeCredito = contratoDeCredito;
         this.dataInicio = dataInicio;

@@ -1,6 +1,6 @@
 package com.app.sistema_de_aluguel.models.Aluguel;
 
-import com.app.sistema_de_aluguel.enums.AluguelPedidoStatus;
+import com.app.sistema_de_aluguel.enums.AluguelStatus;
 import com.app.sistema_de_aluguel.models.Usuarios.Cliente;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.time.Instant;
 @Entity
 @Getter
 @Setter
-public class AluguelPedido {
+public class Aluguel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +31,7 @@ public class AluguelPedido {
     private Contrato contrato;
 
     @Enumerated(EnumType.STRING)
-    private AluguelPedidoStatus status;
+    private AluguelStatus status;
 
     @CreationTimestamp
     private Instant createdAt;
@@ -39,9 +39,9 @@ public class AluguelPedido {
     @UpdateTimestamp
     private Instant updatedAt;
 
-    public AluguelPedido() {}
+    public Aluguel() {}
 
-    public AluguelPedido(Cliente cliente, Automovel automovel, AluguelPedidoStatus status) {
+    public Aluguel(Cliente cliente, Automovel automovel, AluguelStatus status) {
         this.cliente = cliente;
         this.automovel = automovel;
         this.contrato = null;
