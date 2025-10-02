@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ContratoDTO {
     @NotNull
-    private Aluguel pedido;
+    private Long idAluguel;
     @Nullable
     private ContratoDeCredito contratoDeCredito;
     @NotNull

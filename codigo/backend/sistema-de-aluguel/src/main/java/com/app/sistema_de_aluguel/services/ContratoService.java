@@ -1,7 +1,9 @@
 package com.app.sistema_de_aluguel.services;
 
 import com.app.sistema_de_aluguel.dto.ContratoDTO;
+import com.app.sistema_de_aluguel.models.Aluguel.Aluguel;
 import com.app.sistema_de_aluguel.models.Aluguel.Contrato;
+import com.app.sistema_de_aluguel.repositories.AluguelRepository;
 import com.app.sistema_de_aluguel.repositories.ContratoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +16,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ContratoService {
     private final ContratoRepository contratoRepository;
+    private final AluguelRepository aluguelRepository;
 
-    public void create(ContratoDTO contratoDTO) {
-        Contrato contrato = new Contrato(contratoDTO.getPedido(),
-                contratoDTO.getContratoDeCredito(),
-                contratoDTO.getDataInicio(),
-                contratoDTO.getDataFim());
+    public void create(ContratoDTO dto) {
+        Aluguel aluguel = aluguelRepository.findById(dto.getIdAluguel()).get();
+        Contrato contrato = new Contrato(aluguel,
+                dto.getContratoDeCredito(),
+                dto.getDataInicio(),
+                dto.getDataFim());
         contratoRepository.save(contrato);
     }
 
@@ -27,7 +31,8 @@ public class ContratoService {
 
     public Contrato update(Long id, ContratoDTO dto) {
         if (findById(id).isEmpty()) { throw new EntityNotFoundException("Contrato não encontrado."); }
-        return new Contrato(dto.getPedido(), dto.getContratoDeCredito(),
+        Aluguel aluguel = aluguelRepository.findById(dto.getIdAluguel()).get();
+        return new Contrato(aluguel, dto.getContratoDeCredito(),
                 dto.getDataInicio(), dto.getDataFim());
     }
 
