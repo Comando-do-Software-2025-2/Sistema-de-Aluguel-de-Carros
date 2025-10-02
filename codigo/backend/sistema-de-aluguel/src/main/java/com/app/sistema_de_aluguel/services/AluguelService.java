@@ -103,7 +103,6 @@ public class AluguelService {
         // Converter Automovel
         if (pedido.getAutomovel() != null) {
             AutomovelDTO automovelDTO = new AutomovelDTO();
-            automovelDTO.setId(pedido.getAutomovel().getId());
             automovelDTO.setMatricula(pedido.getAutomovel().getMatricula());
             automovelDTO.setAno(pedido.getAutomovel().getAno().getValue());
             automovelDTO.setMarca(pedido.getAutomovel().getMarca());
