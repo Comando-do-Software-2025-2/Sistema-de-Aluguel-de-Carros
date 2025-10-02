@@ -1,5 +1,6 @@
 package com.app.sistema_de_aluguel.controllers;
 
+import com.app.sistema_de_aluguel.dto.ClienteSimpleDTO;
 import com.app.sistema_de_aluguel.models.Usuarios.Cliente;
 import com.app.sistema_de_aluguel.services.ClienteService;
 import lombok.RequiredArgsConstructor;

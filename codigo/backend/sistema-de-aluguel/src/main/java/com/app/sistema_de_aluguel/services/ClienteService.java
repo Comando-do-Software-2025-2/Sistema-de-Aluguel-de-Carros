@@ -1,5 +1,6 @@
 package com.app.sistema_de_aluguel.services;
 
+import com.app.sistema_de_aluguel.dto.ClienteSimpleDTO;
 import com.app.sistema_de_aluguel.models.Usuarios.Cliente;
 import com.app.sistema_de_aluguel.repositories.ClienteRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,14 +26,12 @@ public class ClienteService {
     }
 
     public Cliente create(Cliente cliente) {
-        // Codificar a senha
         cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
-        
-        // Definir permissões vazias se não estiver definida (para evitar erros de constraint)
+
         if (cliente.getPermissoes() == null) {
             cliente.setPermissoes(new HashSet<>());
         }
-        
+
         return clienteRepository.save(cliente);
     }
 

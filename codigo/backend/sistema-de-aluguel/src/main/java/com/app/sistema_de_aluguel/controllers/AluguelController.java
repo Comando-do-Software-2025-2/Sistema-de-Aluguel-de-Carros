@@ -19,7 +19,7 @@ import java.util.Optional;
 @CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174"})
 public class AluguelController {
     private final AluguelService aluguelService;
-    private final AgenteService agenteService; 
+    private final AgenteService agenteService;
 
     @GetMapping
     public ResponseEntity<List<AluguelDTO>> getAll() {

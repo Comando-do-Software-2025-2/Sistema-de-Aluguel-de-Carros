@@ -92,7 +92,6 @@ public class AluguelService {
         // Converter Cliente
         if (pedido.getCliente() != null) {
             ClienteSimpleDTO clienteDTO = new ClienteSimpleDTO();
-            clienteDTO.setId(pedido.getCliente().getId());
             clienteDTO.setNome(pedido.getCliente().getNome());
             clienteDTO.setRg(pedido.getCliente().getRg());
             clienteDTO.setCpf(pedido.getCliente().getCpf());

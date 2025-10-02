@@ -75,13 +75,14 @@ public class AuthController {
         Cliente novoCliente = new Cliente();
         novoCliente.setNome(data.getNome());
         novoCliente.setEmail(data.getEmail());
-        novoCliente.setSenha(data.getSenha()); // A senha será criptografada pelo serviço
+        novoCliente.setSenha(data.getSenha());
         novoCliente.setRg(data.getRg());
         novoCliente.setCpf(data.getCpf());
         novoCliente.setEndereco(data.getEndereco());
         novoCliente.setProfissao(data.getProfissao());
 
         Cliente clienteSalvo = clienteService.create(novoCliente);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteSalvo);
     }
 
