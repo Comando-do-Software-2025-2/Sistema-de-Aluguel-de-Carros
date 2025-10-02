@@ -44,7 +44,7 @@ O projeto tem como objetivo simular um sistema real de locadora de veículos, ap
 ## 🛠️ Habilidades
 
 - Dockerização das aplicações (**frontend, backend e banco**)  
-- Modelagem de dados com **MySQL**  
+- Modelagem de dados com **POSTGRES**  
 - Construção de uma **API REST** em Java Spring Boot  
 - CRUD completo para clientes, veículos, pedidos e contratos  
 - Integração com **frontend em React**  
