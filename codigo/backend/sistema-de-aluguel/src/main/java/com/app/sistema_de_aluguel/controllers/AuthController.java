@@ -1,6 +1,6 @@
 package com.app.sistema_de_aluguel.controllers;
 
-import com.app.sistema_de_aluguel.dto.AuthDTO;
+import com.app.sistema_de_aluguel.dto.LoginDTO;
 import com.app.sistema_de_aluguel.dto.RegisterDTO;
 import com.app.sistema_de_aluguel.dto.TokenDTO;
 import com.app.sistema_de_aluguel.models.Usuarios.Cliente;
@@ -8,8 +8,6 @@ import com.app.sistema_de_aluguel.models.Usuarios.Usuario;
 import com.app.sistema_de_aluguel.repositories.UsuarioRepository;
 import com.app.sistema_de_aluguel.security.TokenService;
 import com.app.sistema_de_aluguel.services.ClienteService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.apache.tomcat.util.http.SameSiteCookies;
@@ -22,12 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -48,7 +41,7 @@ public class AuthController {
     private String secret;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid AuthDTO data, HttpServletResponse response) {
+    public ResponseEntity<?> login(@RequestBody @Valid LoginDTO data, HttpServletResponse response) {
         try {
             var usernamePassword = new UsernamePasswordAuthenticationToken(data.getEmail(), data.getSenha());
             var auth = this.authenticationManager.authenticate(usernamePassword);
