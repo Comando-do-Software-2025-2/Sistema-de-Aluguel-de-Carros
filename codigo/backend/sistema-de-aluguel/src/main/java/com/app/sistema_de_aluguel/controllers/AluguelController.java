@@ -3,6 +3,7 @@ package com.app.sistema_de_aluguel.controllers;
 import com.app.sistema_de_aluguel.dto.AluguelDTO;
 import com.app.sistema_de_aluguel.dto.AluguelFormDTO;
 import com.app.sistema_de_aluguel.enums.AluguelStatus;
+import com.app.sistema_de_aluguel.services.AgenteService;
 import com.app.sistema_de_aluguel.services.AluguelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174"})
 public class AluguelController {
     private final AluguelService aluguelService;
+    private final AgenteService agenteService; 
 
     @GetMapping
     public ResponseEntity<List<AluguelDTO>> getAll() {
