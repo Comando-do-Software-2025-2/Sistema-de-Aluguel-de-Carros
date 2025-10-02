@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/contrato")
+@RequestMapping("/contratos")
 @RequiredArgsConstructor
 public class ContratoController {
     private final ContratoService contratoService;
@@ -32,5 +34,10 @@ public class ContratoController {
                                                    @RequestBody @Valid ContratoDTO contratoDTO) {
         Contrato contrato = contratoService.update(id, contratoDTO);
         return ResponseEntity.ok(contrato);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Contrato>> getAllContratos() {
+        return ResponseEntity.ok(contratoService.findAll());
     }
 }

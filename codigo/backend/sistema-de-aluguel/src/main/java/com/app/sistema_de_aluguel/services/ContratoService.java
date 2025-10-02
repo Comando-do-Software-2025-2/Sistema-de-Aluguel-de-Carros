@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,5 +29,10 @@ public class ContratoService {
         if (findById(id).isEmpty()) { throw new EntityNotFoundException("Contrato não encontrado."); }
         return new Contrato(dto.getPedido(), dto.getContratoDeCredito(),
                 dto.getDataInicio(), dto.getDataFim());
+    }
+
+    public List<Contrato> findAll() {
+        if (contratoRepository.findAll().isEmpty()) { throw new EntityNotFoundException("Não há contratos."); }
+        return contratoRepository.findAll();
     }
 }
